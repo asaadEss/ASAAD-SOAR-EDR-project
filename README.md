@@ -86,4 +86,37 @@ L'intelligence du projet réside dans le storyboard Tines qui gère la logique c
 
 ---
 
+---
 
+## 🚀 Proof of Concept (Workflow Demonstration)
+
+Voici le déroulement complet du scénario, de l'attaque à la remédiation automatisée.
+
+### 1. Simulation de l'Attaque
+Exécution de l'outil `LaZagne.exe` sur la machine victime pour dumper les identifiants.
+![Execution LaZagne](Lazagne.png)
+
+### 2. Détection EDR (LimaCharlie)
+L'agent LimaCharlie détecte immédiatement le nouveau processus malveillant et génère un événement.
+![Detection Timeline](LimaCharlie detection.png)
+
+### 3. Alertes Automatisées (SOAR)
+Tines récupère l'alerte, l'enrichit, et notifie l'analyste simultanément sur Slack et par Email avec les détails critiques.
+
+**Alerte Slack :**
+![Slack Alert](Slack.png)
+
+**Alerte Email :**
+![Email Alert](email message.png)
+
+### 4. Décision Humaine (User Prompt)
+Le workflow se met en pause et présente une page de décision à l'analyste pour valider l'isolation. L'analyste clique sur **"Yes"**.
+![User Prompt Decision](user prompt.png)
+
+### 5. Remédiation et Vérification (Isolation Réseau)
+Suite à la validation, Tines ordonne à LimaCharlie d'isoler la machine. La perte de connectivité est confirmée par l'échec des pings vers 8.8.8.8 ("General failure").
+![Ping Failure Isolation](ping echec (machine isole).png)
+
+### 6. Confirmation Finale (ChatOps)
+Le système confirme dans le canal Slack que l'action d'isolation a été exécutée avec succès (voir le message en bas de l'image).
+![Slack Confirmation Success](Slack messages.png)
