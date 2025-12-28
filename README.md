@@ -19,28 +19,13 @@ Le flux de travail suit le cycle de vie suivant : **Détection -> Enrichissement
 
 ![Architecture Diagram](architecture_diagram.png)
 
-> **Workflow Logique :**
-> 1. **Détection :** L'agent LimaCharlie détecte l'exécution du processus `LaZagne.exe` sur le endpoint.
-> 2. **Orchestration :** L'alerte est transmise à Tines via Webhook. Tines extrait les IoCs (IP, Hostname, Process Path).
-> 3. **Décision (ChatOps) :** Tines envoie une carte interactive sur Slack demandant à l'analyste : *"Voulez-vous isoler la machine ?"*.
-> 4. **Action :** Si l'analyste clique sur **YES**, Tines utilise l'API de LimaCharlie pour isoler la machine du réseau instantanément.
+**Workflow Logique :**
+* **1. **Détection :** L'agent LimaCharlie détecte l'exécution du processus `LaZagne.exe` sur le endpoint.
+* **2. **Orchestration :** L'alerte est transmise à Tines via Webhook. Tines extrait les IoCs (IP, Hostname, Process Path).
+* **3. **Décision (ChatOps) :** Tines envoie une carte interactive sur Slack demandant à l'analyste : *"Voulez-vous isoler la machine ?"*.
+* **4. **Action :** Si l'analyste clique sur **YES**, Tines utilise l'API de LimaCharlie pour isoler la machine du réseau instantanément.
 
 ---
-
-## 🧠 Tines Playbook (Automation Logic)
-
-L'intelligence du projet réside dans le storyboard Tines qui gère la logique conditionnelle.
-
-![Tines Playbook](tines_storyboard.png)
-
-**Étapes clés du Playbook :**
-* **Webhook :** Réception de l'alerte JSON brute depuis l'EDR.
-* **User Prompt :** Génération d'un formulaire interactif envoyé aux analystes avec les détails critiques de l'attaque.
-* **Triggers (Yes/No) :** Branchement conditionnel basé sur la réponse de l'analyste.
-* **HTTP Request (Isolate Sensor) :** En cas de réponse positive, envoi d'une requête API POST pour isoler le capteur concerné.
-
----
-
 ## ⚙️ LimaCharlie Configuration (Detection & Response)
 
 Au lieu d'images statiques, voici le code YAML réel utilisé pour la détection et la réponse, basé sur les configurations du projet.
@@ -85,3 +70,20 @@ rules:
     tags:
       - attack.credential_access
   name: ASAAD-HackTool(Lazagne)
+```
+
+## 🧠 Tines Playbook (Automation Logic)
+
+L'intelligence du projet réside dans le storyboard Tines qui gère la logique conditionnelle.
+
+![Tines Playbook](tines_storyboard.png)
+
+**Étapes clés du Playbook :**
+* **Webhook :** Réception de l'alerte JSON brute depuis l'EDR.
+* **User Prompt :** Génération d'un formulaire interactif envoyé aux analystes avec les détails critiques de l'attaque.
+* **Triggers (Yes/No) :** Branchement conditionnel basé sur la réponse de l'analyste.
+* **HTTP Request (Isolate Sensor) :** En cas de réponse positive, envoi d'une requête API POST pour isoler le capteur concerné.
+
+---
+
+
