@@ -17,7 +17,7 @@ L'objectif est de détecter l'exécution d'outils de vol d'identifiants (*LaZagn
 
 Le flux de travail suit le cycle de vie suivant : **Détection -> Enrichissement -> Décision -> Remédiation**.
 
-![Architecture Diagram](./screenshots/architecture_diagram.png)
+![Architecture Diagram](architecture_diagram.png)
 
 > **Workflow Logique :**
 > 1. **Détection :** L'agent LimaCharlie détecte l'exécution du processus `LaZagne.exe` sur le endpoint.
@@ -31,7 +31,7 @@ Le flux de travail suit le cycle de vie suivant : **Détection -> Enrichissement
 
 L'intelligence du projet réside dans le storyboard Tines qui gère la logique conditionnelle.
 
-![Tines Playbook](./screenshots/tines_storyboard.png)
+![Tines Playbook](tines_storyboard.png)
 
 **Étapes clés du Playbook :**
 * **Webhook :** Réception de l'alerte JSON brute depuis l'EDR.
